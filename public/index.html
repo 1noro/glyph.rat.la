@@ -98,8 +98,10 @@
 
     <script>
 
+        // --- Globals ---
+
         const tableSize = 8;
-        const sampText = "a";
+        const sampText = "Holmes, Lowell and Longfellow lie buried in Mount Auburn";
         const errorText = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
 
         // --- Methods ---
@@ -112,7 +114,7 @@
             return text.toUpperCase();
         }
 
-        // --- Functions ---
+        // --- Table ---
 
         async function digestMessage(message) {
             const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
@@ -161,6 +163,8 @@
             console.log(text);
             printTable(text);
         }
+
+        // --- Copy ---
 
         function addToCopy(text) {
             const copyInput = document.getElementById("copy_input");
