@@ -96,11 +96,15 @@
         const tableSize = 8;
         const samp = "b70bb4acc0484cf040de4c07c60f9db722283da2c4a672c39291de621e92c33f";
 
-        function main() {
-            console.log("main");
-            // const mainTag = document.getElementsByTagName("main")[0];
-            // mainTag.innerText += " soy Inoro."
+        async function digestMessage(message) {
+            const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
+            const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+            return hashHex;
+        }
 
+        function printTable(text) {
             const tableCont = document.getElementById("table_cont");
             let table = document.createElement("table");
 
@@ -115,6 +119,12 @@
             }
 
             tableCont.appendChild(table);
+        }
+
+        async function main() {
+            const digestBuffer = await digestMessage(samp);
+            console.log(digestBuffer);
+            printTable(digestBuffer)
         }
     </script>
 
