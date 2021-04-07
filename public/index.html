@@ -95,6 +95,19 @@
 
         const tableSize = 8;
         const sampText = "a";
+        const errorText = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+
+        // --- Methods ---
+
+        function method1(text) {
+            return text;
+        }
+
+        function method2(text) {
+            return text.toUpperCase();
+        }
+
+        // --- Functions ---
 
         async function digestMessage(message) {
             const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
@@ -124,11 +137,24 @@
 
         async function calculateAndPrint(input) {
             const digestBuffer = await digestMessage(input.value);
-            console.log(digestBuffer);
-            printTable(digestBuffer);
+            let text = errorText;
+
+            switch (document.getElementById("method").value) {
+                case "1":
+                    text = method1(digestBuffer);
+                    break;
+                case "2":
+                    text = method2(digestBuffer);
+                    break;
+            }
+
+            console.log(text);
+            printTable(text);
         }
 
-        async function main() {
+        // --- Main ---
+
+        function main() {
             const sampImput = document.createElement("input");
             // sampImput.type = "text";
             sampImput.value = sampText;
@@ -144,8 +170,16 @@
         <main id="main" aria-label="Main content" tabindex="-1">
 
             <p id="table_cont"></p>
+
             <p>
-                <input type="text" style="width: 70%;" placeholder="Write text..." onkeydown="calculateAndPrint(this);">
+                <select id="method" onchange="calculateAndPrint(document.getElementById('text_input'));">
+                    <option value="1">Method 1</option>
+                    <option value="2">Method 2</option>
+                </select>
+            </p>
+
+            <p>
+                <input id="text_input" type="text" style="width: 70%;" placeholder="Write text..." onkeyup="calculateAndPrint(this);">
             </p>
 
         </main>
