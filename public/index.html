@@ -26,9 +26,40 @@
             body {
                 background-color: #FFFFFF;
                 color: #000000;
-                font-size: 1.05em; /* 1.35em, 14pt */
+                font-size: 1.1em; /* 1.35em, 14pt */
                 /* font-family: Times, Serif; */
                 font-family: Helvetica, sans-serif;
+            }
+
+            /* --- HEADER & FOOTER --- */
+            header, footer, p.center {text-align: center;}
+
+            header div#web_title {
+                font-size: 1.9em; /* this value multiplies the value defined in the body */
+                font-weight: bold;
+                margin: 16px 0px; /* because it is a <div> and not a <p> */
+            }
+
+            /* --- MAIN --- */
+            main {
+                max-width: 350px;
+                margin: 0 auto;
+                /* background-color: aquamarine; */
+                text-align: center;
+            }
+
+            /* --- table --- */
+            table {
+                margin: 0px auto;
+                text-align: center;
+                font-family: monospace;
+                /* font-size: 1.25vw; */
+                font-size: 1.25em;
+                /* font-weight: bold; */
+            }
+
+            td {
+                width: 25px;
             }
         </style>
 
@@ -61,22 +92,56 @@
     </script>
 
     <script>
+
+        const tableSize = 8;
+        const samp = "b70bb4acc0484cf040de4c07c60f9db722283da2c4a672c39291de621e92c33f";
+
         function main() {
-            const mainTag = document.getElementsByTagName("main")[0];
-            mainTag.innerText += " soy Inoro."
+            console.log("main");
+            // const mainTag = document.getElementsByTagName("main")[0];
+            // mainTag.innerText += " soy Inoro."
+
+            const tableCont = document.getElementById("table_cont");
+            let table = document.createElement("table");
+
+            for (let h = 0; h < tableSize; h++) {
+                let tr = document.createElement("tr");
+                for (let w = 0; w < tableSize; w++) {
+                    let td = document.createElement("td");
+                    td.innerText = samp.charAt(h * 8 + w);
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+
+            tableCont.appendChild(table);
         }
     </script>
 
     </head>
     <body onload="main();">
-        <header>
-
+        <header id="header" aria-label="Header" tabindex="-1">
+            <div id="web_title">glyph 🐭 la</div>
         </header>
-        <main>
-            Hola
-        </main>
-        <footer>
+        <main id="main" aria-label="Main content" tabindex="-1">
 
+            <p id="table_cont"></p>
+            <p>
+                <input type="text" style="width: 70%;" placeholder="Write text...">
+            </p>
+
+        </main>
+        <footer id="footer" aria-label="Licenses and other information" tabindex="-1">
+            <p>
+                <small>
+                    Created by <a href="https://github.com/1noro/record.rat.la">Inoro</a> under the <a href="LICENSE" aria-label="All the code that supports the page is under the GPLv3 license.">GPLv3</a> license
+                </small>
+            </p>
+            <p>
+                <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" aria-label="All multimedia content is licensed under CC-BY-NC-SA.">
+                    <img alt="Creative Commons BY-NC-SA license" style="border-width: 0; width: auto;" src="img/cc.png" width="80" height="15"/>
+                </a>
+            </p>
         </footer>
     </body>
 </html>
