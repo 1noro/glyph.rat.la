@@ -100,7 +100,8 @@
 
         // --- Globals ---
 
-        const tableSize = 8;
+        const tableSize = 10;
+        const charTableSize = 8;
         const sampText = "Holmes, Lowell and Longfellow lie buried in Mount Auburn";
         const errorText = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
 
@@ -129,19 +130,56 @@
             tableCont.innerHTML = "";
             let table = document.createElement("table");
 
-            for (let h = 0; h < tableSize; h++) {
+            let charArr = [];
+            for (let h = 0; h < charTableSize; h++) {
+                charArr.push([]);
+                for (let w = 0; w < charTableSize; w++) {
+                    charArr[h][w] = text.charAt(h * 8 + w);
+                }
+            }
+
+            console.log(charArr);
+
+            let h = 0;
+            let w = 0;
+            for (let tH = 0; tH < tableSize; tH++) {
                 let tr = document.createElement("tr");
-                for (let w = 0; w < tableSize; w++) {
+                if (tH > 0 && tH < 9) {
+                    tdArr.push([]);
+                    w = 0;
+                }
+                for (let tW = 0; tW < tableSize; tW++) {
                     let td = document.createElement("td");
-                    td.innerText = text.charAt(h * 8 + w);
-                    td.addEventListener("click", function(){
-                        addToCopy(text.charAt(h * 8 + w));
-                        this.style.color = "red";
-                        this.style.fontWeight = "bold";
-                    });
+                    if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
+                        td.innerText = charArr[h][w];
+                        td.addEventListener("click", function() {
+                            addToCopy(this.innerText);
+                            this.style.color = "red";
+                            this.style.fontWeight = "bold";
+                        });
+                        w++;
+                    } else {
+                        if (tH > 0 && tH < 9) {
+                            td.innerText = "·";
+                            let rowArr = [...charArr[h]]; // clone array
+                            let textToCopy = "";
+                            if (tW == 0) {
+                                textToCopy = rowArr.join("");
+                            } else {
+                                rowArr.reverse();
+                                textToCopy = rowArr.join("");
+                            }
+                            td.addEventListener("click", function() {
+                                addToCopy(textToCopy);
+                                this.style.color = "red";
+                                this.style.fontWeight = "bold";
+                            });
+                        }
+                    }
                     tr.appendChild(td);
                 }
                 table.appendChild(tr);
+                if (tH > 0 && tH < 9) h++;
             }
 
             tableCont.appendChild(table);
