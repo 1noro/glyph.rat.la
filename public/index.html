@@ -94,7 +94,7 @@
     <script>
 
         const tableSize = 8;
-        const samp = "b70bb4acc0484cf040de4c07c60f9db722283da2c4a672c39291de621e92c33f";
+        const sampText = "a";
 
         async function digestMessage(message) {
             const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
@@ -106,13 +106,14 @@
 
         function printTable(text) {
             const tableCont = document.getElementById("table_cont");
+            tableCont.innerHTML = "";
             let table = document.createElement("table");
 
             for (let h = 0; h < tableSize; h++) {
                 let tr = document.createElement("tr");
                 for (let w = 0; w < tableSize; w++) {
                     let td = document.createElement("td");
-                    td.innerText = samp.charAt(h * 8 + w);
+                    td.innerText = text.charAt(h * 8 + w);
                     tr.appendChild(td);
                 }
                 table.appendChild(tr);
@@ -121,10 +122,17 @@
             tableCont.appendChild(table);
         }
 
-        async function main() {
-            const digestBuffer = await digestMessage(samp);
+        async function calculateAndPrint(input) {
+            const digestBuffer = await digestMessage(input.value);
             console.log(digestBuffer);
-            printTable(digestBuffer)
+            printTable(digestBuffer);
+        }
+
+        async function main() {
+            const sampImput = document.createElement("input");
+            // sampImput.type = "text";
+            sampImput.value = sampText;
+            calculateAndPrint(sampImput);
         }
     </script>
 
@@ -137,7 +145,7 @@
 
             <p id="table_cont"></p>
             <p>
-                <input type="text" style="width: 70%;" placeholder="Write text...">
+                <input type="text" style="width: 70%;" placeholder="Write text..." onkeydown="calculateAndPrint(this);">
             </p>
 
         </main>
