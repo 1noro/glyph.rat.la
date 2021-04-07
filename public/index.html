@@ -54,12 +54,17 @@
                 text-align: center;
                 font-family: monospace;
                 /* font-size: 1.25vw; */
-                font-size: 1.25em;
+                font-size: 1.5em;
                 /* font-weight: bold; */
             }
 
             td {
                 width: 25px;
+                cursor: pointer;
+            }
+
+            td:hover {
+                font-weight: bold;
             }
         </style>
 
@@ -127,6 +132,11 @@
                 for (let w = 0; w < tableSize; w++) {
                     let td = document.createElement("td");
                     td.innerText = text.charAt(h * 8 + w);
+                    td.addEventListener("click", function(){
+                        addToCopy(text.charAt(h * 8 + w));
+                        this.style.color = "red";
+                        this.style.fontWeight = "bold";
+                    });
                     tr.appendChild(td);
                 }
                 table.appendChild(tr);
@@ -152,6 +162,21 @@
             printTable(text);
         }
 
+        function addToCopy(text) {
+            const copyInput = document.getElementById("copy_input");
+            copyInput.value += text;
+        }
+
+        function copy() {
+            const copyInput = document.getElementById("copy_input");
+            const copySubmit = document.getElementById("copy_submit");
+            copyInput.select();
+            copyInput.setSelectionRange(0, 99999)
+            document.execCommand("copy");
+            // alert("Copied the text: " + copyInput.value);
+            copySubmit.value = "copy again";
+        }
+
         // --- Main ---
 
         function main() {
@@ -169,8 +194,6 @@
         </header>
         <main id="main" aria-label="Main content" tabindex="-1">
 
-            <p id="table_cont"></p>
-
             <p>
                 <select id="method" onchange="calculateAndPrint(document.getElementById('text_input'));">
                     <option value="1">Method 1</option>
@@ -180,6 +203,16 @@
 
             <p>
                 <input id="text_input" type="text" style="width: 70%;" placeholder="Write text..." onkeyup="calculateAndPrint(this);">
+            </p>
+
+            <p id="table_cont"></p>
+
+            <p>
+                <input id="copy_input" type="text" style="width: 70%;" placeholder="Result" readonly>
+            </p>
+
+            <p>
+                <input id="copy_submit" type="submit" value="copy" onclick="copy();">
             </p>
 
         </main>
