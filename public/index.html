@@ -104,13 +104,33 @@
         const charTableSize = 8;
         const sampText = "Holmes, Lowell and Longfellow lie buried in Mount Auburn";
         const errorText = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
-        const specialChars = "_!@#$%^&*(){}[]:\";'<>?,./-+=\|";
+        const specialChars = "_!@#$%^&*(){}[]:\";'<>?,/-+=\|";
 
         // --- Methods ---
 
+        function upperLowerCase(text) {
+            let result = text.charAt(0);
+            for (let i = 1; i < text.length; i++) {
+                if (text.charCodeAt(i - 1) % 2 != 0) {
+                    result += text.charAt(i).toUpperCase();
+                } else {
+                    result += text.charAt(i);
+                }
+            }
+            return result;
+        }
+
         // Numbers + Letters + Special characters
         function defaultMethod(text) {
-            return numbersLettersMethod(text);
+            let result = text.charAt(0);
+            for (let i = 1; i < text.length; i++) {
+                if ((text.charCodeAt(i - 1) + text.charCodeAt(i) + i) % 2 != 0) {
+                    result += specialChars.charAt(i % specialChars.length);
+                } else {
+                    result += text.charAt(i);
+                }
+            }
+            return upperLowerCase(result);
         }
 
         // Numbers
@@ -124,15 +144,7 @@
 
         // Numbers + Letters
         function numbersLettersMethod(text) {
-            let result = text.charAt(0);
-            for (let i = 1; i < text.length; i++) {
-                if (text.charCodeAt(i - 1) % 2 == 0) {
-                    result += text.charAt(i).toUpperCase();
-                } else {
-                    result += text.charAt(i);
-                }
-            }
-            return result;
+            return upperLowerCase(text);
         }
 
         // --- Table ---
@@ -307,7 +319,7 @@
             <p id="table_cont"></p>
 
             <p>
-                <input id="copy_input" type="text" style="width: 70%;" placeholder="Result" readonly>
+                <input id="copy_input" type="text" style="width: 70%; text-align: center;" placeholder="text to copy" readonly>
             </p>
 
             <p>
