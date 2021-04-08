@@ -104,15 +104,35 @@
         const charTableSize = 8;
         const sampText = "Holmes, Lowell and Longfellow lie buried in Mount Auburn";
         const errorText = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+        const specialChars = "_!@#$%^&*(){}[]:\";'<>?,./-+=\|";
 
         // --- Methods ---
 
-        function method1(text) {
-            return text;
+        // Numbers + Letters + Special characters
+        function defaultMethod(text) {
+            return numbersLettersMethod(text);
         }
 
-        function method2(text) {
-            return text.toUpperCase();
+        // Numbers
+        function numbersMethod(text) {
+            let result = "";
+            for (let i = 0; i < text.length; i++) {
+                result += text.charCodeAt(i) % 10; // result always < 10
+            }
+            return result;
+        }
+
+        // Numbers + Letters
+        function numbersLettersMethod(text) {
+            let result = text.charAt(0);
+            for (let i = 1; i < text.length; i++) {
+                if (text.charCodeAt(i - 1) % 2 == 0) {
+                    result += text.charAt(i).toUpperCase();
+                } else {
+                    result += text.charAt(i);
+                }
+            }
+            return result;
         }
 
         // --- Table ---
@@ -147,8 +167,8 @@
                 _w++;
             }
 
-            console.log(charArr);
-            console.log(invCharArr);
+            // console.log(charArr);
+            // console.log(invCharArr);
 
             let h = 0;
             let w = 0;
@@ -215,15 +235,20 @@
         }
 
         async function calculateAndPrint(input) {
-            const digestBuffer = await digestMessage(input.value);
+            let inputText = input.value;
+            if (inputText == "") inputText = sampText;
+            const digestBuffer = await digestMessage(inputText);
             let text = errorText;
 
             switch (document.getElementById("method").value) {
+                case "0":
+                    text = defaultMethod(digestBuffer);
+                    break;
                 case "1":
-                    text = method1(digestBuffer);
+                    text = numbersMethod(digestBuffer);
                     break;
                 case "2":
-                    text = method2(digestBuffer);
+                    text = numbersLettersMethod(digestBuffer);
                     break;
             }
 
@@ -238,7 +263,7 @@
             copyInput.value += text;
         }
 
-        function copy() {
+        function copyInput() {
             const copyInput = document.getElementById("copy_input");
             const copySubmit = document.getElementById("copy_submit");
             copyInput.select();
@@ -248,13 +273,15 @@
             copySubmit.value = "copy again";
         }
 
+        function clearInput() {
+            const copyInput = document.getElementById("copy_input");
+            copyInput.value = "";
+        }
+
         // --- Main ---
 
         function main() {
-            const sampImput = document.createElement("input");
-            // sampImput.type = "text";
-            sampImput.value = sampText;
-            calculateAndPrint(sampImput);
+            calculateAndPrint(document.getElementById('text_input'));
         }
     </script>
 
@@ -267,8 +294,9 @@
 
             <p>
                 <select id="method" onchange="calculateAndPrint(document.getElementById('text_input'));">
-                    <option value="1">Method 1</option>
-                    <option value="2">Method 2</option>
+                    <option value="0">Default method</option>
+                    <option value="1">Numbers</option>
+                    <option value="2">Numbers + letters</option>
                 </select>
             </p>
 
@@ -283,7 +311,8 @@
             </p>
 
             <p>
-                <input id="copy_submit" type="submit" value="copy" onclick="copy();">
+                <input type="submit" value="clear" onclick="clearInput();">
+                <input id="copy_submit" type="submit" value="copy" onclick="copyInput();">
             </p>
 
         </main>
