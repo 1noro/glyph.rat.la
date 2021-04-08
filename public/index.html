@@ -106,7 +106,7 @@
         const errorText = "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
         const specialChars = "_!@#$%^&*(){}[]:\";'<>?,/-+=\|";
 
-        // --- Methods ---
+        // --- Utils ---
 
         function upperLowerCase(text) {
             let result = text.charAt(0);
@@ -120,11 +120,38 @@
             return result;
         }
 
+        function getStats(text) {
+            let number = 0;
+            let lower = 0;
+            let upper = 0;
+            let special = 0;
+            for (let i = 0; i < text.length; i++) {
+                if (/^\d+$/.test(text.charAt(i))) {
+                    number++;
+                } else if (/[a-z]/.test(text.charAt(i))) {
+                    lower++;
+                } else if (/[A-Z]/.test(text.charAt(i))) {
+                    upper++;
+                } else {
+                    special++;
+                }
+            }
+            return {
+                "special" : special * 100 / text.length,
+                "number" : number * 100 / text.length,
+                "char" : (lower + upper) * 100 / text.length,
+                "lower" : lower * 100 / text.length,
+                "upper" : upper * 100 / text.length
+            };
+        }
+
+        // --- Methods ---
+
         // Numbers + Letters + Special characters
         function defaultMethod(text) {
             let result = text.charAt(0);
             for (let i = 1; i < text.length; i++) {
-                if ((text.charCodeAt(i - 1) + text.charCodeAt(i) + i) % 2 != 0) {
+                if ((text.charCodeAt(i - 1) + text.charCodeAt(i) + i) % 3 == 0) {
                     result += specialChars.charAt(i % specialChars.length);
                 } else {
                     result += text.charAt(i);
@@ -265,6 +292,7 @@
             }
 
             console.log(text);
+            console.log(getStats(text));
             printTable(text);
         }
 
@@ -288,6 +316,7 @@
         function clearInput() {
             const copyInput = document.getElementById("copy_input");
             copyInput.value = "";
+            calculateAndPrint(document.getElementById('text_input'));
         }
 
         // --- Main ---
