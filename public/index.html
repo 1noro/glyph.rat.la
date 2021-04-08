@@ -130,28 +130,35 @@
             tableCont.innerHTML = "";
             let table = document.createElement("table");
 
+            // here we create the character arrays
             let charArr = [];
+            let invCharArr = [];
+            let _w = 0;
+            let _h = 0;
             for (let h = 0; h < charTableSize; h++) {
                 charArr.push([]);
+                invCharArr.push([]);
+                _h = 0;
                 for (let w = 0; w < charTableSize; w++) {
                     charArr[h][w] = text.charAt(h * 8 + w);
+                    invCharArr[_w][_h] = text.charAt(_h * 8 + _w);
+                    _h++;
                 }
+                _w++;
             }
 
             console.log(charArr);
+            console.log(invCharArr);
 
-            // let tdArr = [];
             let h = 0;
             let w = 0;
             for (let tH = 0; tH < tableSize; tH++) {
                 let tr = document.createElement("tr");
-                if (tH > 0 && tH < 9) {
-                    // tdArr.push([]);
-                    w = 0;
-                }
+                if (tH > 0 && tH < 9) w = 0;
                 for (let tW = 0; tW < tableSize; tW++) {
                     let td = document.createElement("td");
                     if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
+                        // square chars
                         td.innerText = charArr[h][w];
                         td.addEventListener("click", function() {
                             addToCopy(this.innerText);
@@ -161,6 +168,7 @@
                         w++;
                     } else {
                         if (tH > 0 && tH < 9) {
+                            // vertical dots (left & right)
                             td.innerText = "·";
                             let rowArr = [...charArr[h]]; // clone array
                             let textToCopy = "";
@@ -176,10 +184,11 @@
                                 this.style.fontWeight = "bold";
                             });
                         } else if (tW > 0 && tW < 9) {
+                            // horizontal dots (top & bottom)
                             td.innerText = "·";
-                            /*let rowArr = [...charArr[h]]; // clone array
+                            let rowArr = [...invCharArr[tW - 1]]; // clone array
                             let textToCopy = "";
-                            if (tW == 0) {
+                            if (tH == 0) {
                                 textToCopy = rowArr.join("");
                             } else {
                                 rowArr.reverse();
@@ -189,8 +198,9 @@
                                 addToCopy(textToCopy);
                                 this.style.color = "red";
                                 this.style.fontWeight = "bold";
-                            });*/
+                            });
                         } else {
+                            // blank corners
                             td.innerText = " ";
                             td.style.cursor = "default";
                         }
