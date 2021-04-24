@@ -10,23 +10,6 @@ function addToCopy(text) {
     copyInput.value += text;
 }
 
-// eslint-disable-next-line no-unused-vars
-function copyText() {
-    const copyInput = document.getElementById('copy_input');
-    const copySubmit = document.getElementById('copy_submit');
-    copyInput.select();
-    copyInput.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    // alert("Copied the text: " + copyInput.value);
-    copySubmit.value = 'copy again';
-}
-
-// eslint-disable-next-line no-unused-vars
-function clearCopy() {
-    const copyInput = document.getElementById('copy_input');
-    copyInput.value = '';
-}
-
 // --- Table ---
 
 async function digestMessage(message) {
@@ -157,13 +140,24 @@ function main() {
 }
 
 function setup() {
+    const copyInput = document.getElementById('copy_input');
+    const copySubmit = document.getElementById('copy_submit');
+    const clearCopySubmit = document.getElementById('clear_copy_submit');
+
     document.querySelector('#method').addEventListener('change', calculateAndPrint);
     document.querySelector('#text_input').addEventListener('keyup', calculateAndPrint);
-    document.querySelector('#clear_copy_submit').addEventListener('click', () => {
-        clearCopy();
+
+    clearCopySubmit.addEventListener('click', () => {
+        copyInput.value = '';
         calculateAndPrint();
     });
-    document.querySelector('#copy_submit').addEventListener('click', copyText);
+
+    copySubmit.addEventListener('click', () => {
+        copyInput.select();
+        copyInput.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        copySubmit.value = 'copy again';
+    });
 
     main();
 }
