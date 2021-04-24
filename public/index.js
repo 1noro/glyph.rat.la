@@ -1,3 +1,6 @@
+// --- Imports ---
+import { upperLowerCase, getStats } from './js/utils.js';
+
 // --- Globals ---
 
 const tableSize = 10;
@@ -7,45 +10,6 @@ const errorText = 'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 // eslint-disable-next-line no-useless-escape
 const specialChars = '_!@#$%^&*(){}[]:";\'<>?,/-+=\|';
 
-// --- Utils ---
-
-function upperLowerCase(text) {
-    let result = text.charAt(0);
-    for (let i = 1; i < text.length; i += 1) {
-        if (text.charCodeAt(i - 1) % 2 !== 0) {
-            result += text.charAt(i).toUpperCase();
-        } else {
-            result += text.charAt(i);
-        }
-    }
-    return result;
-}
-
-function getStats(text) {
-    let number = 0;
-    let lower = 0;
-    let upper = 0;
-    let special = 0;
-    for (let i = 0; i < text.length; i += 1) {
-        if (/^\d+$/.test(text.charAt(i))) {
-            number += 1;
-        } else if (/[a-z]/.test(text.charAt(i))) {
-            lower += 1;
-        } else if (/[A-Z]/.test(text.charAt(i))) {
-            upper += 1;
-        } else {
-            special += 1;
-        }
-    }
-    return {
-        special: (special * 100) / text.length,
-        number: (number * 100) / text.length,
-        char: ((lower + upper) * 100) / text.length,
-        lower: (lower * 100) / text.length,
-        upper: (upper * 100) / text.length,
-    };
-}
-
 // --- Copy ---
 
 function addToCopy(text) {
@@ -54,7 +18,7 @@ function addToCopy(text) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function copyInputText() {
+function copyText() {
     const copyInput = document.getElementById('copy_input');
     const copySubmit = document.getElementById('copy_submit');
     copyInput.select();
@@ -65,7 +29,7 @@ function copyInputText() {
 }
 
 // eslint-disable-next-line no-unused-vars
-function clearInput() {
+function clearCopy() {
     const copyInput = document.getElementById('copy_input');
     copyInput.value = '';
 }
@@ -145,9 +109,9 @@ function printTable(text) {
                 // square chars
                 td.innerText = charArr[h][w];
                 td.addEventListener('click', () => {
-                    addToCopy(this.innerText);
-                    this.style.color = 'red';
-                    this.style.fontWeight = 'bold';
+                    addToCopy(td.innerText);
+                    td.style.color = 'red';
+                    td.style.fontWeight = 'bold';
                 });
                 w += 1;
             } else if (tH > 0 && tH < 9) {
@@ -163,8 +127,8 @@ function printTable(text) {
                 }
                 td.addEventListener('click', () => {
                     addToCopy(textToCopy);
-                    this.style.color = 'red';
-                    this.style.fontWeight = 'bold';
+                    td.style.color = 'red';
+                    td.style.fontWeight = 'bold';
                 });
             } else if (tW > 0 && tW < 9) {
                 // horizontal dots (top & bottom)
@@ -179,8 +143,8 @@ function printTable(text) {
                 }
                 td.addEventListener('click', () => {
                     addToCopy(textToCopy);
-                    this.style.color = 'red';
-                    this.style.fontWeight = 'bold';
+                    td.style.color = 'red';
+                    td.style.fontWeight = 'bold';
                 });
             } else {
                 // blank corners
@@ -196,7 +160,8 @@ function printTable(text) {
     tableCont.appendChild(table);
 }
 
-async function calculateAndPrint(input) {
+async function calculateAndPrint() {
+    const input = document.querySelector('#text_input');
     let inputText = input.value;
     if (inputText === '') inputText = sampText;
     const digestBuffer = await digestMessage(inputText);
@@ -223,7 +188,22 @@ async function calculateAndPrint(input) {
 
 // --- Main ---
 
-// eslint-disable-next-line no-unused-vars
-function main() {
-    calculateAndPrint(document.getElementById('text_input'));
+// function main() {
+//     calculateAndPrint(document.getElementById('text_input'));
+// }
+
+function setup() {
+    // window.addEventListener('load', main);
+
+    document.querySelector('#method').addEventListener('change', calculateAndPrint);
+    document.querySelector('#text_input').addEventListener('keyup', calculateAndPrint);
+    document.querySelector('#clear_copy_submit').addEventListener('click', () => {
+        clearCopy();
+        calculateAndPrint();
+    });
+    document.querySelector('#copy_submit').addEventListener('click', copyText);
 }
+
+setup();
+
+calculateAndPrint(); // main

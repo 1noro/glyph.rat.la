@@ -96,17 +96,23 @@
         */
     </script>
 
-    <script src="js/index.js"></script>
+    <script type="module" src="js/utils.js"></script>
+    <script type="module" src="index.js"></script>
+
+    <script>
+        // import { main } from './index.js';
+    </script>
 
     </head>
-    <body onload="main();">
+    <body>
         <header id="header" aria-label="Header" tabindex="-1">
             <div id="web_title">glyph 🐭 la</div>
         </header>
         <main id="main" aria-label="Main content" tabindex="-1">
 
             <p>
-                <select id="method" onchange="calculateAndPrint(document.getElementById('text_input'));">
+                <!-- <select id="method" onchange="calculateAndPrint(document.getElementById('text_input'));"> -->
+                <select id="method">
                     <option value="0">Default method</option>
                     <option value="1">Numbers</option>
                     <option value="2">Numbers + letters</option>
@@ -116,7 +122,8 @@
             <p id="table_cont"></p>
 
             <p>
-                <input id="text_input" type="text" style="width: 70%; text-align: center;" placeholder="&gt write here &lt;" onkeyup="calculateAndPrint(this);">
+                <!-- <input id="text_input" type="text" style="width: 70%; text-align: center;" placeholder="&gt write here &lt;" onkeyup="calculateAndPrint(this);"> -->
+                <input id="text_input" type="text" style="width: 70%; text-align: center;" placeholder="&gt write here &lt;">
             </p>
 
             <p>
@@ -124,8 +131,8 @@
             </p>
 
             <p>
-                <input type="submit" value="clear" onclick="clearInput();">
-                <input id="copy_submit" type="submit" value="copy" onclick="copyInputText();">
+                <input id="clear_copy_submit" type="submit" value="clear">
+                <input id="copy_submit" type="submit" value="copy">
             </p>
 
         </main>
