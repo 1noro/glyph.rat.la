@@ -1,5 +1,14 @@
 // --- Utils ---
 
+// el test falla, porque jsdom no implementa TextEncoder
+async function digestMessage(message) {
+    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+    return hashHex;
+}
+
 // Uppercase transformation of previous even numbers
 function uppercaseTransformation(text) {
     let result = text.charAt(0);
@@ -38,4 +47,4 @@ function getStats(text) {
     };
 }
 
-export { uppercaseTransformation, getStats };
+export { digestMessage, uppercaseTransformation, getStats };

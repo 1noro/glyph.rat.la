@@ -1,6 +1,6 @@
 // --- Imports ---
 import * as GLOBALS from './js/globals.js';
-import { getStats } from './js/utils.js';
+import { digestMessage, getStats } from './js/utils.js';
 import { defaultMethod, numbersMethod, numbersLettersMethod } from './js/methods.js';
 
 // --- Copy ---
@@ -11,14 +11,6 @@ function addToCopy(text) {
 }
 
 // --- Table ---
-
-async function digestMessage(message) {
-    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
-    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
-    return hashHex;
-}
 
 function printTable(text) {
     const tableCont = document.getElementById('table_cont');
