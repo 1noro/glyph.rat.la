@@ -1,5 +1,5 @@
 // --- Utils ---
-import Sha256 from './lib/sha256.js';
+import Sha256 from './lib/sha256.js'; // https://www.movable-type.co.uk/scripts/sha256.html
 
 // Versión de Mozilla (https://developer.mozilla.org/es/docs/Web/API/SubtleCrypto/digest)
 // el test falla, porque jsdom no implementa TextEncoder
