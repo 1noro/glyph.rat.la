@@ -1,4 +1,4 @@
-import { digestMessage, uppercaseTransformation, getStats } from '../../public/js/utils.js';
+import { /* digestMessage, */ uppercaseTransformation, getStats } from '../../public/js/utils.js';
 import * as GLOBALS from '../../public/js/globals.js';
 
 // falla, porque jsdom no implementa TextEncoder
