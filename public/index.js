@@ -157,8 +157,6 @@ function main() {
 }
 
 function setup() {
-    // window.addEventListener('load', main);
-
     document.querySelector('#method').addEventListener('change', calculateAndPrint);
     document.querySelector('#text_input').addEventListener('keyup', calculateAndPrint);
     document.querySelector('#clear_copy_submit').addEventListener('click', () => {
