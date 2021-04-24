@@ -7,8 +7,10 @@ const errorText = 'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 // eslint-disable-next-line no-useless-escape
 const specialChars = '_!@#$%^&*(){}[]:";\'<>?,/-+=\|';
 
-export { tableSize };
-export { charTableSize };
-export { sampText };
-export { errorText };
-export { specialChars };
+export {
+    tableSize,
+    charTableSize,
+    sampText,
+    errorText,
+    specialChars,
+};
