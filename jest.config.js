@@ -176,7 +176,7 @@ module.exports = {
 
     // A map from regular expressions to paths to transformers
     // transform: undefined,
-    transform: {},
+    // transform: {},
     // transform: {
     //     'node_modules/variables/.+\\.(j|t)sx?$': 'ts-jest',
     // },
