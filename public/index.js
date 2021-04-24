@@ -188,9 +188,10 @@ async function calculateAndPrint() {
 
 // --- Main ---
 
-// function main() {
-//     calculateAndPrint(document.getElementById('text_input'));
-// }
+function main() {
+    calculateAndPrint();
+    alert('hola');
+}
 
 function setup() {
     // window.addEventListener('load', main);
@@ -202,8 +203,8 @@ function setup() {
         calculateAndPrint();
     });
     document.querySelector('#copy_submit').addEventListener('click', copyText);
+
+    main();
 }
 
-setup();
-
-calculateAndPrint(); // main
+window.addEventListener('load', setup);
