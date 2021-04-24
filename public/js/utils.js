@@ -1,12 +1,12 @@
 // --- Utils ---
 
-function upperLowerCase(text) {
+// Uppercase transformation of previous even numbers
+function uppercaseTransformation(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
         if (text.charCodeAt(i - 1) % 2 !== 0) {
             result += text.charAt(i).toUpperCase();
         } else {
-            // result += text.charAt(i).toLowerCase();
             result += text.charAt(i);
         }
     }
@@ -38,4 +38,4 @@ function getStats(text) {
     };
 }
 
-export { upperLowerCase, getStats };
+export { uppercaseTransformation, getStats };

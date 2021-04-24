@@ -1,14 +1,6 @@
 // --- Imports ---
-import { upperLowerCase, getStats } from './js/utils.js';
-
-// --- Globals ---
-
-const tableSize = 10;
-const charTableSize = 8;
-const sampText = 'Holmes, Lowell and Longfellow lie buried in Mount Auburn';
-const errorText = 'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE';
-// eslint-disable-next-line no-useless-escape
-const specialChars = '_!@#$%^&*(){}[]:";\'<>?,/-+=\|';
+import { uppercaseTransformation, getStats } from './js/utils.js';
+import * as GLOBALS from './js/globals.js';
 
 // --- Copy ---
 
@@ -41,12 +33,12 @@ function defaultMethod(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
         if ((text.charCodeAt(i - 1) + text.charCodeAt(i) + i) % 3 === 0) {
-            result += specialChars.charAt(i % specialChars.length);
+            result += GLOBALS.specialChars.charAt(i % GLOBALS.specialChars.length);
         } else {
             result += text.charAt(i);
         }
     }
-    return upperLowerCase(result);
+    return uppercaseTransformation(result);
 }
 
 // Numbers
@@ -60,7 +52,7 @@ function numbersMethod(text) {
 
 // Numbers + Letters
 function numbersLettersMethod(text) {
-    return upperLowerCase(text);
+    return uppercaseTransformation(text);
 }
 
 // --- Table ---
@@ -83,11 +75,11 @@ function printTable(text) {
     const invCharArr = [];
     let wAlpha = 0;
     let hAlpha = 0;
-    for (let h = 0; h < charTableSize; h += 1) {
+    for (let h = 0; h < GLOBALS.charTableSize; h += 1) {
         charArr.push([]);
         invCharArr.push([]);
         hAlpha = 0;
-        for (let w = 0; w < charTableSize; w += 1) {
+        for (let w = 0; w < GLOBALS.charTableSize; w += 1) {
             charArr[h][w] = text.charAt(h * 8 + w);
             invCharArr[wAlpha][hAlpha] = text.charAt(hAlpha * 8 + wAlpha);
             hAlpha += 1;
@@ -100,10 +92,10 @@ function printTable(text) {
 
     let h = 0;
     let w = 0;
-    for (let tH = 0; tH < tableSize; tH += 1) {
+    for (let tH = 0; tH < GLOBALS.tableSize; tH += 1) {
         const tr = document.createElement('tr');
         if (tH > 0 && tH < 9) w = 0;
-        for (let tW = 0; tW < tableSize; tW += 1) {
+        for (let tW = 0; tW < GLOBALS.tableSize; tW += 1) {
             const td = document.createElement('td');
             if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
                 // square chars
@@ -163,9 +155,9 @@ function printTable(text) {
 async function calculateAndPrint() {
     const input = document.querySelector('#text_input');
     let inputText = input.value;
-    if (inputText === '') inputText = sampText;
+    if (inputText === '') inputText = GLOBALS.sampText;
     const digestBuffer = await digestMessage(inputText);
-    let text = errorText;
+    let text = GLOBALS.errorText;
 
     switch (document.getElementById('method').value) {
     case '0':
@@ -178,7 +170,7 @@ async function calculateAndPrint() {
         text = numbersLettersMethod(digestBuffer);
         break;
     default:
-        text = errorText;
+        text = GLOBALS.errorText;
     }
 
     console.log(text);
@@ -190,7 +182,6 @@ async function calculateAndPrint() {
 
 function main() {
     calculateAndPrint();
-    alert('hola');
 }
 
 function setup() {
