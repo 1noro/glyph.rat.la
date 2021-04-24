@@ -1,0 +1,25 @@
+{
+  "name": "glyph.rat.la",
+  "version": "0.2.0",
+  "description": "Web to obtain a random string based on an input text and a simple configuration.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1noro/glyph.rat.la.git"
+  },
+  "keywords": [],
+  "author": "1noro",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/1noro/glyph.rat.la/issues"
+  },
+  "homepage": "https://github.com/1noro/glyph.rat.la#readme",
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}
