@@ -104,8 +104,8 @@ async function calculateAndPrint() {
     let inputText = input.value;
     if (inputText === '') inputText = GLOBALS.sampText;
     const digestBuffer = await digestMessage(inputText);
-    let text = GLOBALS.errorText;
 
+    let text;
     switch (document.getElementById('method').value) {
     case '0':
         text = defaultMethod(digestBuffer);

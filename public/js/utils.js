@@ -1,13 +1,18 @@
 // --- Utils ---
+import Sha256 from './lib/sha256.js';
 
+// Versión de Mozilla (https://developer.mozilla.org/es/docs/Web/API/SubtleCrypto/digest)
 // el test falla, porque jsdom no implementa TextEncoder
-async function digestMessage(message) {
+/* async function digestMessage(message) {
     const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
     const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+    // convert bytes to hex string
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
     return hashHex;
-}
+} */
+
+const digestMessage = (message) => Sha256.hash(message);
 
 // Uppercase transformation of previous even numbers
 function uppercaseTransformation(text) {

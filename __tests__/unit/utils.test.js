@@ -1,15 +1,15 @@
-import { /* digestMessage, */ uppercaseTransformation, getStats } from '../../public/js/utils.js';
+import { digestMessage, uppercaseTransformation, getStats } from '../../public/js/utils.js';
 import * as GLOBALS from '../../public/js/globals.js';
 
-// falla, porque jsdom no implementa TextEncoder
-// describe('digestMessage test', () => {
-//     test('SHA-256 of a', async () => {
-//         const result = await digestMessage('a');
-//         expect(result).toBe(
-//             'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb',
-//         );
-//     });
-// });
+// falla con la versión de Mozilla, porque jsdom no implementa TextEncoder
+describe('digestMessage test', () => {
+    test('SHA-256 of "a"', async () => {
+        const result = await digestMessage('a');
+        expect(result).toBe(
+            'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb',
+        );
+    });
+});
 
 describe('uppercaseTransformation test', () => {
     test('las posiciones 0 y 2 son minúsculas', () => {
