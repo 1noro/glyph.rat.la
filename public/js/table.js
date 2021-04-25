@@ -1,11 +1,13 @@
 // --- Table ---
 import * as GLOBALS from './globals.js';
 
+// TODO: refactor (can not be tested)
 function addToCopy(text) {
     const copyInput = document.getElementById('copy_input');
     copyInput.value += text;
 }
 
+// TODO: refactor
 function getCharacterArrays(text) {
     const charArr = [];
     const invCharArr = [];
@@ -28,6 +30,7 @@ function getCharacterArrays(text) {
     return { charArr, invCharArr };
 }
 
+// TODO: refactor
 function getSquareCharTd(text) {
     const td = document.createElement('td');
     td.innerText = text;
