@@ -1,7 +1,7 @@
 // --- Index ---
 import * as GLOBALS from './js/globals.js';
-import { digestMessage, getStats } from './js/utils.js';
-import { defaultMethod, numberMethod, numberLetterMethod } from './js/methods.js';
+import { getStats } from './js/utils.js';
+import { getText } from './js/text.js';
 
 // --- Copy ---
 
@@ -101,22 +101,6 @@ function printTable(text) {
     }
 
     tableCont.appendChild(table);
-}
-
-function getTextByMethod(text, methodFunction) {
-    // if (text === '') return methodFunction(await digestMessage(GLOBALS.sampText)); // async
-    if (text === '') return methodFunction(digestMessage(GLOBALS.sampText));
-    // return methodFunction(await digestMessage(text)); // async
-    return methodFunction(digestMessage(text));
-}
-
-function getText(inputTextObject, selectMethodObject) {
-    const method = {
-        0: (text) => defaultMethod(text),
-        1: (text) => numberMethod(text),
-        2: (text) => numberLetterMethod(text),
-    };
-    return getTextByMethod(inputTextObject.value, method[selectMethodObject.value]);
 }
 
 // --- Main ---
