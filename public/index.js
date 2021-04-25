@@ -65,6 +65,34 @@ function getVerticalDotTd(charArr, h, tW) {
     return td;
 }
 
+// TODO: refactor
+function getHorizontalDotTd(invCharArr, tW, tH) {
+    const td = document.createElement('td');
+    td.innerText = '·';
+    const rowArr = [...invCharArr[tW - 1]]; // clone array
+    let textToCopy = '';
+    if (tH === 0) {
+        textToCopy = rowArr.join('');
+    } else {
+        rowArr.reverse();
+        textToCopy = rowArr.join('');
+    }
+    td.addEventListener('click', () => {
+        addToCopy(textToCopy);
+        td.style.color = 'red';
+        td.style.fontWeight = 'bold';
+    });
+    return td;
+}
+
+// TODO: refactor
+function getBlankCornerTd() {
+    const td = document.createElement('td');
+    td.innerText = ' ';
+    td.style.cursor = 'default';
+    return td;
+}
+
 // --- Print Table ---
 
 // TODO: refactor
@@ -90,8 +118,7 @@ function printTable(text) {
         const tr = document.createElement('tr');
         if (tH > 0 && tH < 9) w = 0;
         for (let tW = 0; tW < GLOBALS.tableSize; tW += 1) {
-            let td = document.createElement('td');
-            // const td;
+            let td;
             if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
                 // square chars
                 td = getSquareCharTd(charArr[h][w]);
@@ -101,24 +128,10 @@ function printTable(text) {
                 td = getVerticalDotTd(charArr, h, tW);
             } else if (tW > 0 && tW < 9) {
                 // horizontal dots (top & bottom)
-                td.innerText = '·';
-                const rowArr = [...invCharArr[tW - 1]]; // clone array
-                let textToCopy = '';
-                if (tH === 0) {
-                    textToCopy = rowArr.join('');
-                } else {
-                    rowArr.reverse();
-                    textToCopy = rowArr.join('');
-                }
-                td.addEventListener('click', () => {
-                    addToCopy(textToCopy);
-                    td.style.color = 'red';
-                    td.style.fontWeight = 'bold';
-                });
+                td = getHorizontalDotTd(invCharArr, tW, tH);
             } else {
                 // blank corners
-                td.innerText = ' ';
-                td.style.cursor = 'default';
+                td = getBlankCornerTd();
             }
             tr.appendChild(td);
         }
