@@ -42,7 +42,8 @@ function setup() {
     });
 
     clearCopySubmit.addEventListener('click', () => {
-        copyInput.value = '';
+        // copyInput.value = '';
+        copyInput.setAttribute('value', '');
         refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });
 
