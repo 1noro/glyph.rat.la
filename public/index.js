@@ -13,6 +13,10 @@ function addToCopy(text) {
 // --- Table ---
 
 function printTable(text) {
+    // logs
+    console.log(text);
+    console.log(getStats(text));
+
     const tableCont = document.getElementById('table_cont');
     tableCont.innerHTML = '';
     const table = document.createElement('table');
@@ -100,49 +104,67 @@ function printTable(text) {
 }
 
 // TODO: Refactor
-async function calculateAndPrint() {
-    const input = document.querySelector('#text_input');
-    let inputText = input.value;
-    if (inputText === '') inputText = GLOBALS.sampText;
-    const digestBuffer = await digestMessage(inputText);
+// async function calculateAndPrint() {
+//     const input = document.querySelector('#text_input');
+//     let inputText = input.value;
+//     if (inputText === '') inputText = GLOBALS.sampText;
+//     const digestBuffer = await digestMessage(inputText);
 
-    let text;
-    switch (document.getElementById('method').value) {
-    case '0':
-        text = defaultMethod(digestBuffer);
-        break;
-    case '1':
-        text = numberMethod(digestBuffer);
-        break;
-    case '2':
-        text = numberLetterMethod(digestBuffer);
-        break;
-    default:
-        text = GLOBALS.errorText;
-    }
+//     let text;
+//     switch (document.getElementById('method').value) {
+//     case '0':
+//         text = defaultMethod(digestBuffer);
+//         break;
+//     case '1':
+//         text = numberMethod(digestBuffer);
+//         break;
+//     case '2':
+//         text = numberLetterMethod(digestBuffer);
+//         break;
+//     default:
+//         text = GLOBALS.errorText;
+//     }
 
-    console.log(text);
-    console.log(getStats(text));
-    printTable(text);
+//     console.log(text);
+//     console.log(getStats(text));
+//     printTable(text);
+// }
+
+const method = {
+    0: (text) => defaultMethod(text),
+    1: (text) => numberMethod(text),
+    2: (text) => numberLetterMethod(text),
+};
+
+function getTextByMethod(text, methodFunction) {
+    if (text === '') return methodFunction(GLOBALS.sampText);
+    return methodFunction(text);
+}
+
+function getText(inputTextObject, selectMethodObject) {
+    // const digestBuffer = await digestMessage(inputText); // async version
+    const digestBuffer = digestMessage(inputTextObject.value);
+    return getTextByMethod(digestBuffer, method[selectMethodObject.value]);
 }
 
 // --- Main ---
-
-function main() {
-    calculateAndPrint();
-}
-
 function setup() {
+    const inputTextObject = document.getElementById('text_input');
+    const selectMethodObject = document.getElementById('method');
     const copyInput = document.getElementById('copy_input');
     const copySubmit = document.getElementById('copy_submit');
     const clearCopySubmit = document.getElementById('clear_copy_submit');
 
-    document.querySelector('#method').addEventListener('change', calculateAndPrint);
-    document.querySelector('#text_input').addEventListener('keyup', calculateAndPrint);
+    document.querySelector('#method').addEventListener('change', () => {
+        printTable(getText(inputTextObject, selectMethodObject));
+    });
+    document.querySelector('#text_input').addEventListener('keyup', () => {
+        printTable(getText(inputTextObject, selectMethodObject));
+    });
 
     clearCopySubmit.addEventListener('click', () => {
         copyInput.value = '';
-        calculateAndPrint();
+        printTable(getText(inputTextObject, selectMethodObject));
     });
 
     copySubmit.addEventListener('click', () => {
@@ -152,7 +174,8 @@ function setup() {
         copySubmit.value = 'copy again';
     });
 
-    main();
+    // first print
+    printTable(getText(inputTextObject, selectMethodObject));
 }
 
 window.addEventListener('load', setup);
