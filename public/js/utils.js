@@ -1,8 +1,8 @@
 // --- Utils ---
 import Sha256 from './lib/sha256.js'; // https://www.movable-type.co.uk/scripts/sha256.html
 
-// Versión de Mozilla (https://developer.mozilla.org/es/docs/Web/API/SubtleCrypto/digest)
-// el test falla, porque jsdom no implementa TextEncoder
+// Mozilla's version (https://developer.mozilla.org/es/docs/Web/API/SubtleCrypto/digest)
+// The test fails, because jsdom does not implement TextEncoder
 // async function digestMessage(message) {
 //     const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
 //     const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
@@ -14,8 +14,8 @@ import Sha256 from './lib/sha256.js'; // https://www.movable-type.co.uk/scripts/
 
 const digestMessage = (message) => Sha256.hash(message);
 
-// Uppercase transformation of previous even numbers
-function uppercaseTransformation(text) {
+// Upper case transformation of previous even number
+function upperCaseTransformation(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
         if (text.charCodeAt(i - 1) % 2 !== 0) {
@@ -44,12 +44,12 @@ function getStats(text) {
         }
     }
     return {
-        special: (special * 100) / text.length,
-        number: (number * 100) / text.length,
-        char: ((lower + upper) * 100) / text.length,
-        lower: (lower * 100) / text.length,
-        upper: (upper * 100) / text.length,
+        special: (special * 100) / text.length, // special characters
+        number: (number * 100) / text.length, // numeric digits
+        char: ((lower + upper) * 100) / text.length, // alphabetic characters
+        lower: (lower * 100) / text.length, // lower case alphabetic characters
+        upper: (upper * 100) / text.length, // upper case alphabetic characters
     };
 }
 
-export { digestMessage, uppercaseTransformation, getStats };
+export { digestMessage, upperCaseTransformation, getStats };

@@ -1,4 +1,4 @@
-// --- Globals ---
+// --- GLOBALS ---
 
 const tableSize = 10;
 const charTableSize = 8;

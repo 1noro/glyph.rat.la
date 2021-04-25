@@ -1,8 +1,8 @@
 // --- Methods ---
 import * as GLOBALS from './globals.js';
-import { uppercaseTransformation } from './utils.js';
+import { upperCaseTransformation } from './utils.js';
 
-// Numbers + Letters + Special characters
+// Number + Letter + Special character
 function defaultMethod(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
@@ -12,11 +12,11 @@ function defaultMethod(text) {
             result += text.charAt(i);
         }
     }
-    return uppercaseTransformation(result);
+    return upperCaseTransformation(result);
 }
 
-// Numbers
-function numbersMethod(text) {
+// Number
+function numberMethod(text) {
     let result = '';
     for (let i = 0; i < text.length; i += 1) {
         result += text.charCodeAt(i) % 10; // result always < 10
@@ -24,9 +24,9 @@ function numbersMethod(text) {
     return result;
 }
 
-// Numbers + Letters
-function numbersLettersMethod(text) {
-    return uppercaseTransformation(text);
+// Number + Letter
+function numberLetterMethod(text) {
+    return upperCaseTransformation(text);
 }
 
-export { defaultMethod, numbersMethod, numbersLettersMethod };
+export { defaultMethod, numberMethod, numberLetterMethod };

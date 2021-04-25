@@ -1,7 +1,7 @@
-// --- Imports ---
+// --- Index ---
 import * as GLOBALS from './js/globals.js';
 import { digestMessage, getStats } from './js/utils.js';
-import { defaultMethod, numbersMethod, numbersLettersMethod } from './js/methods.js';
+import { defaultMethod, numberMethod, numberLetterMethod } from './js/methods.js';
 
 // --- Copy ---
 
@@ -111,10 +111,10 @@ async function calculateAndPrint() {
         text = defaultMethod(digestBuffer);
         break;
     case '1':
-        text = numbersMethod(digestBuffer);
+        text = numberMethod(digestBuffer);
         break;
     case '2':
-        text = numbersLettersMethod(digestBuffer);
+        text = numberLetterMethod(digestBuffer);
         break;
     default:
         text = GLOBALS.errorText;

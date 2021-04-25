@@ -1,4 +1,4 @@
-import { defaultMethod, numbersMethod, numbersLettersMethod } from '../../public/js/methods.js';
+import { defaultMethod, numberMethod, numberLetterMethod } from '../../public/js/methods.js';
 
 describe('defaultMethod test', () => {
     test('ca978112 -> cA@78112', () => {
@@ -18,12 +18,12 @@ describe('defaultMethod test', () => {
 
 describe('numbersMethod test', () => {
     test('abcde -> 78901', () => {
-        expect(numbersMethod('abcde')).toBe('78901');
+        expect(numberMethod('abcde')).toBe('78901');
     });
 });
 
 describe('numbersLettersMethod test', () => {
     test('la última letra es mayúscula', () => {
-        expect(numbersLettersMethod('a2cd')).toBe('a2cD');
+        expect(numberLetterMethod('a2cd')).toBe('a2cD');
     });
 });

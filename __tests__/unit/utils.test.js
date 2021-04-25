@@ -1,4 +1,4 @@
-import { digestMessage, uppercaseTransformation, getStats } from '../../public/js/utils.js';
+import { digestMessage, upperCaseTransformation, getStats } from '../../public/js/utils.js';
 import * as GLOBALS from '../../public/js/globals.js';
 
 // falla con la versión de Mozilla, porque jsdom no implementa TextEncoder
@@ -50,7 +50,7 @@ describe('digestMessage test', () => {
 
 describe('uppercaseTransformation test', () => {
     test('las posiciones 0 y 2 son minúsculas', () => {
-        expect(uppercaseTransformation('abc')).toBe('aBc');
+        expect(upperCaseTransformation('abc')).toBe('aBc');
     });
 });
 
