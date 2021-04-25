@@ -103,33 +103,6 @@ function printTable(text) {
     tableCont.appendChild(table);
 }
 
-// TODO: Refactor
-// async function calculateAndPrint() {
-//     const input = document.querySelector('#text_input');
-//     let inputText = input.value;
-//     if (inputText === '') inputText = GLOBALS.sampText;
-//     const digestBuffer = await digestMessage(inputText);
-
-//     let text;
-//     switch (document.getElementById('method').value) {
-//     case '0':
-//         text = defaultMethod(digestBuffer);
-//         break;
-//     case '1':
-//         text = numberMethod(digestBuffer);
-//         break;
-//     case '2':
-//         text = numberLetterMethod(digestBuffer);
-//         break;
-//     default:
-//         text = GLOBALS.errorText;
-//     }
-
-//     console.log(text);
-//     console.log(getStats(text));
-//     printTable(text);
-// }
-
 function getTextByMethod(text, methodFunction) {
     // if (text === '') return methodFunction(await digestMessage(GLOBALS.sampText)); // async
     if (text === '') return methodFunction(digestMessage(GLOBALS.sampText));
