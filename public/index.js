@@ -34,6 +34,17 @@ function getCharacterArrays(text) {
     return { charArr, invCharArr };
 }
 
+function getSquareCharTd(text) {
+    const td = document.createElement('td');
+    td.innerText = text;
+    td.addEventListener('click', () => {
+        addToCopy(td.innerText);
+        td.style.color = 'red';
+        td.style.fontWeight = 'bold';
+    });
+    return td;
+}
+
 // --- Table ---
 
 function printTable(text) {
@@ -41,6 +52,7 @@ function printTable(text) {
     console.log(text);
     console.log(getStats(text));
 
+    // html elements
     const tableCont = document.getElementById('table_cont');
     tableCont.innerHTML = '';
     const table = document.createElement('table');
@@ -57,15 +69,11 @@ function printTable(text) {
         const tr = document.createElement('tr');
         if (tH > 0 && tH < 9) w = 0;
         for (let tW = 0; tW < GLOBALS.tableSize; tW += 1) {
-            const td = document.createElement('td');
+            let td = document.createElement('td');
+            // const td;
             if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
                 // square chars
-                td.innerText = charArr[h][w];
-                td.addEventListener('click', () => {
-                    addToCopy(td.innerText);
-                    td.style.color = 'red';
-                    td.style.fontWeight = 'bold';
-                });
+                td = getSquareCharTd(charArr[h][w]);
                 w += 1;
             } else if (tH > 0 && tH < 9) {
                 // vertical dots (left & right)
