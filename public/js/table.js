@@ -31,11 +31,12 @@ function getCharacterArrays(text) {
 }
 
 // TODO: refactor
-function getSquareCharTd(text) {
+function getSquareCharTd(text, copyInput) {
     const td = document.createElement('td');
     td.innerText = text;
     td.addEventListener('click', () => {
-        addToCopy(td.innerText);
+        // addToCopy(td.innerText);
+        copyInput.value += text;
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
     });
@@ -91,7 +92,7 @@ function getBlankCornerTd() {
 }
 
 // TODO: refactor
-function getTable(text) {
+function getTable(text, copyInput) {
     const table = document.createElement('table');
     const { charArr, invCharArr } = getCharacterArrays(text); // charArr & invCharArr construction
 
@@ -107,7 +108,7 @@ function getTable(text) {
             let td;
             if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
                 // square chars
-                td = getSquareCharTd(charArr[h][w]);
+                td = getSquareCharTd(charArr[h][w], copyInput);
                 w += 1;
             } else if (tH > 0 && tH < 9) {
                 // vertical dots (left & right)

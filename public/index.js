@@ -6,7 +6,7 @@ import { getTable } from './js/table.js';
 // --- Main ---
 
 // Refresh table: (text, method) -> calculate -> clear -> display
-function refresh(inputTextObject, selectMethodObject, tableContainerObject) {
+function refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput) {
     // calculate
     const digestText = getText(inputTextObject, selectMethodObject);
 
@@ -21,7 +21,7 @@ function refresh(inputTextObject, selectMethodObject, tableContainerObject) {
     }
 
     // display
-    const table = getTable(digestText);
+    const table = getTable(digestText, copyInput);
     tableContainerObject.appendChild(table);
 }
 
@@ -34,16 +34,16 @@ function setup() {
     const clearCopySubmit = document.getElementById('clear_copy_submit');
 
     document.getElementById('method').addEventListener('change', () => {
-        refresh(inputTextObject, selectMethodObject, tableContainerObject);
+        refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });
 
     document.getElementById('text_input').addEventListener('keyup', () => {
-        refresh(inputTextObject, selectMethodObject, tableContainerObject);
+        refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });
 
     clearCopySubmit.addEventListener('click', () => {
         copyInput.value = '';
-        refresh(inputTextObject, selectMethodObject, tableContainerObject);
+        refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });
 
     copySubmit.addEventListener('click', () => {
@@ -54,7 +54,7 @@ function setup() {
     });
 
     // first print (main)
-    refresh(inputTextObject, selectMethodObject, tableContainerObject);
+    refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
 }
 
 window.addEventListener('load', setup);
