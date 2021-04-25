@@ -93,10 +93,8 @@ function getBlankCornerTd() {
     return td;
 }
 
-// --- Print Table ---
-
 // TODO: refactor
-function printTable(text, tableContainerObject) {
+function getTable(text) {
     const table = document.createElement('table');
     const { charArr, invCharArr } = getCharacterArrays(text); // charArr & invCharArr construction
 
@@ -130,7 +128,7 @@ function printTable(text, tableContainerObject) {
         if (tH > 0 && tH < 9) h += 1;
     }
 
-    tableContainerObject.appendChild(table);
+    return table;
 }
 
 // --- Main ---
@@ -151,7 +149,8 @@ function refresh(inputTextObject, selectMethodObject, tableContainerObject) {
     }
 
     // display
-    printTable(digestText, tableContainerObject);
+    const table = getTable(digestText);
+    tableContainerObject.appendChild(table);
 }
 
 function setup() {
