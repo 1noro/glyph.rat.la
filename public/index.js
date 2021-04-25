@@ -10,6 +10,30 @@ function addToCopy(text) {
     copyInput.value += text;
 }
 
+// --- Table utils ---
+
+function getCharacterArrays(text) {
+    const charArr = [];
+    const invCharArr = [];
+
+    let wAlpha = 0;
+    let hAlpha = 0;
+
+    for (let h = 0; h < GLOBALS.charTableSize; h += 1) {
+        charArr.push([]);
+        invCharArr.push([]);
+        hAlpha = 0;
+        for (let w = 0; w < GLOBALS.charTableSize; w += 1) {
+            charArr[h][w] = text.charAt(h * 8 + w);
+            invCharArr[wAlpha][hAlpha] = text.charAt(hAlpha * 8 + wAlpha);
+            hAlpha += 1;
+        }
+        wAlpha += 1;
+    }
+
+    return { charArr, invCharArr };
+}
+
 // --- Table ---
 
 function printTable(text) {
@@ -22,21 +46,7 @@ function printTable(text) {
     const table = document.createElement('table');
 
     // here we create the character arrays
-    const charArr = [];
-    const invCharArr = [];
-    let wAlpha = 0;
-    let hAlpha = 0;
-    for (let h = 0; h < GLOBALS.charTableSize; h += 1) {
-        charArr.push([]);
-        invCharArr.push([]);
-        hAlpha = 0;
-        for (let w = 0; w < GLOBALS.charTableSize; w += 1) {
-            charArr[h][w] = text.charAt(h * 8 + w);
-            invCharArr[wAlpha][hAlpha] = text.charAt(hAlpha * 8 + wAlpha);
-            hAlpha += 1;
-        }
-        wAlpha += 1;
-    }
+    const { charArr, invCharArr } = getCharacterArrays(text);
 
     // console.log(charArr);
     // console.log(invCharArr);
