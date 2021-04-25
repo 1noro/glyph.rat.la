@@ -3,6 +3,7 @@ import * as GLOBALS from './globals.js';
 import { upperCaseTransformation } from './utils.js';
 
 // Number + Letter + Special character
+// TODO: functional refactor
 function defaultMethod(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
@@ -16,6 +17,7 @@ function defaultMethod(text) {
 }
 
 // Number
+// TODO: functional refactor
 function numberMethod(text) {
     let result = '';
     for (let i = 0; i < text.length; i += 1) {

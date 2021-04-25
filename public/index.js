@@ -99,6 +99,7 @@ function printTable(text) {
     tableCont.appendChild(table);
 }
 
+// TODO: Refactor
 async function calculateAndPrint() {
     const input = document.querySelector('#text_input');
     let inputText = input.value;

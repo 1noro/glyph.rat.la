@@ -15,6 +15,7 @@ import Sha256 from './lib/sha256.js'; // https://www.movable-type.co.uk/scripts/
 const digestMessage = (message) => Sha256.hash(message);
 
 // Upper case transformation of previous even number
+// TODO: functional refactor
 function upperCaseTransformation(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
@@ -27,6 +28,7 @@ function upperCaseTransformation(text) {
     return result;
 }
 
+// TODO: functional refactor
 function getStats(text) {
     let number = 0;
     let lower = 0;
