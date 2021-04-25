@@ -96,18 +96,9 @@ function getBlankCornerTd() {
 // --- Print Table ---
 
 // TODO: refactor
-function printTable(text) {
-    // logs
-    console.log(text);
-    console.log(getStats(text));
-
-    // html elements
-    const tableCont = document.getElementById('table_cont');
-    tableCont.innerHTML = '';
+function printTable(text, tableContainerObject) {
     const table = document.createElement('table');
-
-    // here we create the character arrays
-    const { charArr, invCharArr } = getCharacterArrays(text);
+    const { charArr, invCharArr } = getCharacterArrays(text); // charArr & invCharArr construction
 
     // console.log(charArr);
     // console.log(invCharArr);
@@ -139,28 +130,49 @@ function printTable(text) {
         if (tH > 0 && tH < 9) h += 1;
     }
 
-    tableCont.appendChild(table);
+    tableContainerObject.appendChild(table);
 }
 
 // --- Main ---
 
+// Refresh table: (text, method) -> calculate -> clear -> display
+function refresh(inputTextObject, selectMethodObject, tableContainerObject) {
+    // calculate
+    const digestText = getText(inputTextObject, selectMethodObject);
+
+    // log
+    console.log(digestText);
+    console.log(getStats(digestText));
+
+    // clear
+    // tableContainerObject.innerHTML = '';
+    if (tableContainerObject.lastChild) {
+        tableContainerObject.removeChild(tableContainerObject.lastChild);
+    }
+
+    // display
+    printTable(digestText, tableContainerObject);
+}
+
 function setup() {
     const inputTextObject = document.getElementById('text_input');
     const selectMethodObject = document.getElementById('method');
+    const tableContainerObject = document.getElementById('table_cont');
     const copyInput = document.getElementById('copy_input');
     const copySubmit = document.getElementById('copy_submit');
     const clearCopySubmit = document.getElementById('clear_copy_submit');
 
     document.getElementById('method').addEventListener('change', () => {
-        printTable(getText(inputTextObject, selectMethodObject));
+        refresh(inputTextObject, selectMethodObject, tableContainerObject);
     });
+
     document.getElementById('text_input').addEventListener('keyup', () => {
-        printTable(getText(inputTextObject, selectMethodObject));
+        refresh(inputTextObject, selectMethodObject, tableContainerObject);
     });
 
     clearCopySubmit.addEventListener('click', () => {
         copyInput.value = '';
-        printTable(getText(inputTextObject, selectMethodObject));
+        refresh(inputTextObject, selectMethodObject, tableContainerObject);
     });
 
     copySubmit.addEventListener('click', () => {
@@ -171,7 +183,7 @@ function setup() {
     });
 
     // first print (main)
-    printTable(getText(inputTextObject, selectMethodObject));
+    refresh(inputTextObject, selectMethodObject, tableContainerObject);
 }
 
 window.addEventListener('load', setup);
