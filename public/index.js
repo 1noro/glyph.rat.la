@@ -130,24 +130,24 @@ function printTable(text) {
 //     printTable(text);
 // }
 
-const method = {
-    0: (text) => defaultMethod(text),
-    1: (text) => numberMethod(text),
-    2: (text) => numberLetterMethod(text),
-};
-
 function getTextByMethod(text, methodFunction) {
-    if (text === '') return methodFunction(GLOBALS.sampText);
-    return methodFunction(text);
+    // if (text === '') return methodFunction(await digestMessage(GLOBALS.sampText)); // async
+    if (text === '') return methodFunction(digestMessage(GLOBALS.sampText));
+    // return methodFunction(await digestMessage(text)); // async
+    return methodFunction(digestMessage(text));
 }
 
 function getText(inputTextObject, selectMethodObject) {
-    // const digestBuffer = await digestMessage(inputText); // async version
-    const digestBuffer = digestMessage(inputTextObject.value);
-    return getTextByMethod(digestBuffer, method[selectMethodObject.value]);
+    const method = {
+        0: (text) => defaultMethod(text),
+        1: (text) => numberMethod(text),
+        2: (text) => numberLetterMethod(text),
+    };
+    return getTextByMethod(inputTextObject.value, method[selectMethodObject.value]);
 }
 
 // --- Main ---
+
 function setup() {
     const inputTextObject = document.getElementById('text_input');
     const selectMethodObject = document.getElementById('method');
@@ -155,10 +155,10 @@ function setup() {
     const copySubmit = document.getElementById('copy_submit');
     const clearCopySubmit = document.getElementById('clear_copy_submit');
 
-    document.querySelector('#method').addEventListener('change', () => {
+    document.getElementById('method').addEventListener('change', () => {
         printTable(getText(inputTextObject, selectMethodObject));
     });
-    document.querySelector('#text_input').addEventListener('keyup', () => {
+    document.getElementById('text_input').addEventListener('keyup', () => {
         printTable(getText(inputTextObject, selectMethodObject));
     });
 
@@ -174,7 +174,7 @@ function setup() {
         copySubmit.value = 'copy again';
     });
 
-    // first print
+    // first print (main)
     printTable(getText(inputTextObject, selectMethodObject));
 }
 
