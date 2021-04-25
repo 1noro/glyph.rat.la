@@ -45,8 +45,29 @@ function getSquareCharTd(text) {
     return td;
 }
 
-// --- Table ---
+// TODO: refactor
+function getVerticalDotTd(charArr, h, tW) {
+    const td = document.createElement('td');
+    td.innerText = '·';
+    const rowArr = [...charArr[h]]; // clone array
+    let textToCopy = '';
+    if (tW === 0) {
+        textToCopy = rowArr.join('');
+    } else {
+        rowArr.reverse();
+        textToCopy = rowArr.join('');
+    }
+    td.addEventListener('click', () => {
+        addToCopy(textToCopy);
+        td.style.color = 'red';
+        td.style.fontWeight = 'bold';
+    });
+    return td;
+}
 
+// --- Print Table ---
+
+// TODO: refactor
 function printTable(text) {
     // logs
     console.log(text);
@@ -77,20 +98,7 @@ function printTable(text) {
                 w += 1;
             } else if (tH > 0 && tH < 9) {
                 // vertical dots (left & right)
-                td.innerText = '·';
-                const rowArr = [...charArr[h]]; // clone array
-                let textToCopy = '';
-                if (tW === 0) {
-                    textToCopy = rowArr.join('');
-                } else {
-                    rowArr.reverse();
-                    textToCopy = rowArr.join('');
-                }
-                td.addEventListener('click', () => {
-                    addToCopy(textToCopy);
-                    td.style.color = 'red';
-                    td.style.fontWeight = 'bold';
-                });
+                td = getVerticalDotTd(charArr, h, tW);
             } else if (tW > 0 && tW < 9) {
                 // horizontal dots (top & bottom)
                 td.innerText = '·';
