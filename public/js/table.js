@@ -36,7 +36,8 @@ function getSquareCharTd(text, copyInput) {
     td.innerText = text;
     td.addEventListener('click', () => {
         // addToCopy(td.innerText);
-        copyInput.value += text;
+        // copyInput.value += text;
+        copyInput.setAttribute('value', copyInput.value + text);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
     });
