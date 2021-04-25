@@ -1,7 +1,7 @@
 // --- Table ---
 import * as GLOBALS from './globals.js';
 
-// TODO: refactor (can not be tested)
+// TODO: delete (can not be tested)
 function addToCopy(text) {
     const copyInput = document.getElementById('copy_input');
     copyInput.value += text;
@@ -30,11 +30,12 @@ function getCharacterArrays(text) {
     return { charArr, invCharArr };
 }
 
-function getSquareCharTd(text, copyInput) {
+function getSquareCharTd(textToCopy, copyInput) {
     const td = document.createElement('td');
-    td.innerText = text;
+    td.innerText = textToCopy;
     td.addEventListener('click', () => {
-        copyInput.setAttribute('value', copyInput.value + text);
+        addToCopy(textToCopy);
+        // copyInput.setAttribute('value', copyInput.value + textToCopy);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
     });
@@ -42,7 +43,7 @@ function getSquareCharTd(text, copyInput) {
 }
 
 // TODO: refactor
-function getVerticalDotTd(charArr, h, tW) {
+function getVerticalDotTd(charArr, h, tW, copyInput) {
     const td = document.createElement('td');
     td.innerText = '·';
     const rowArr = [...charArr[h]]; // clone array
@@ -54,7 +55,8 @@ function getVerticalDotTd(charArr, h, tW) {
         textToCopy = rowArr.join('');
     }
     td.addEventListener('click', () => {
-        addToCopy(textToCopy);
+        // addToCopy(textToCopy);
+        copyInput.setAttribute('value', copyInput.value + textToCopy);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
     });
@@ -62,7 +64,7 @@ function getVerticalDotTd(charArr, h, tW) {
 }
 
 // TODO: refactor
-function getHorizontalDotTd(invCharArr, tW, tH) {
+function getHorizontalDotTd(invCharArr, tW, tH, copyInput) {
     const td = document.createElement('td');
     td.innerText = '·';
     const rowArr = [...invCharArr[tW - 1]]; // clone array
@@ -74,7 +76,8 @@ function getHorizontalDotTd(invCharArr, tW, tH) {
         textToCopy = rowArr.join('');
     }
     td.addEventListener('click', () => {
-        addToCopy(textToCopy);
+        // addToCopy(textToCopy);
+        copyInput.setAttribute('value', copyInput.value + textToCopy);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
     });
@@ -110,10 +113,10 @@ function getTable(text, copyInput) {
                 w += 1;
             } else if (tH > 0 && tH < 9) {
                 // vertical dots (left & right)
-                td = getVerticalDotTd(charArr, h, tW);
+                td = getVerticalDotTd(charArr, h, tW, copyInput);
             } else if (tW > 0 && tW < 9) {
                 // horizontal dots (top & bottom)
-                td = getHorizontalDotTd(invCharArr, tW, tH);
+                td = getHorizontalDotTd(invCharArr, tW, tH, copyInput);
             } else {
                 // blank corners
                 td = getBlankCornerTd();
