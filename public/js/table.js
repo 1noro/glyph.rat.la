@@ -30,13 +30,10 @@ function getCharacterArrays(text) {
     return { charArr, invCharArr };
 }
 
-// TODO: refactor
 function getSquareCharTd(text, copyInput) {
     const td = document.createElement('td');
     td.innerText = text;
     td.addEventListener('click', () => {
-        // addToCopy(td.innerText);
-        // copyInput.value += text;
         copyInput.setAttribute('value', copyInput.value + text);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
