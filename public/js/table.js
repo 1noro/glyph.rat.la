@@ -1,12 +1,6 @@
 // --- Table ---
 import * as GLOBALS from './globals.js';
 
-// TODO: delete (can not be tested)
-// function addToCopy(text) {
-//     const copyInput = document.getElementById('copy_input');
-//     copyInput.value += text;
-// }
-
 // TODO: refactor
 function getCharacterArrays(text) {
     const charArr = [];
@@ -34,7 +28,6 @@ function getSquareCharTd(textToCopy, copyInput) {
     const td = document.createElement('td');
     td.innerText = textToCopy;
     td.addEventListener('click', () => {
-        // addToCopy(textToCopy);
         copyInput.setAttribute('value', copyInput.value + textToCopy);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
@@ -55,7 +48,6 @@ function getVerticalDotTd(charArr, h, tW, copyInput) {
         textToCopy = rowArr.join('');
     }
     td.addEventListener('click', () => {
-        // addToCopy(textToCopy);
         copyInput.setAttribute('value', copyInput.value + textToCopy);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
@@ -76,7 +68,6 @@ function getHorizontalDotTd(invCharArr, tW, tH, copyInput) {
         textToCopy = rowArr.join('');
     }
     td.addEventListener('click', () => {
-        // addToCopy(textToCopy);
         copyInput.setAttribute('value', copyInput.value + textToCopy);
         td.style.color = 'red';
         td.style.fontWeight = 'bold';
@@ -131,7 +122,6 @@ function getTable(text, copyInput) {
 }
 
 export {
-    // addToCopy,
     getCharacterArrays,
     getSquareCharTd,
     getVerticalDotTd,
