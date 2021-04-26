@@ -36,6 +36,7 @@ function getSquareCharTd(textToCopy, copyInput) {
 }
 
 // TODO: refactor
+// vertical dots (left & right)
 function getVerticalDotTd(charArr, h, tW, copyInput) {
     const td = document.createElement('td');
     td.innerText = '·';
@@ -56,6 +57,7 @@ function getVerticalDotTd(charArr, h, tW, copyInput) {
 }
 
 // TODO: refactor
+// horizontal dots (top & bottom)
 function getHorizontalDotTd(invCharArr, tW, tH, copyInput) {
     const td = document.createElement('td');
     td.innerText = '·';
