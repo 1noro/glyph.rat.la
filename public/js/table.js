@@ -75,7 +75,6 @@ function getHorizontalDotTd(invCharArr, tW, tH, copyInput) {
     return td;
 }
 
-// TODO: refactor
 function getBlankCornerTd() {
     const td = document.createElement('td');
     td.innerText = ' ';
