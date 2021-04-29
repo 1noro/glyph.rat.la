@@ -2,6 +2,7 @@ import {
     getCharacterArrays,
     getSquareCharTd,
     getVerticalDotTd,
+    getHorizontalDotTd,
     getBlankCornerTd,
 } from '../../public/js/table.js';
 
@@ -69,19 +70,21 @@ describe('getSquareCharTd test', () => {
     });
 });
 
-function getVerticalDotTdTestMaterials() {
+function getDotTdTestMaterials() {
     const text = '0d@#$faB131{}788";49C?A7-+970!CD$%9&*()A3F]:4dba>7,eB3=93EBf7%1&';
-    const { charArr } = getCharacterArrays(text);
+    const { charArr, invCharArr } = getCharacterArrays(text);
     const input = document.createElement('input');
 
     const expectedTd = document.createElement('td');
     expectedTd.innerText = '·';
-    return { charArr, input, expectedTd };
+    return {
+        charArr, invCharArr, input, expectedTd,
+    };
 }
 
 describe('getVerticalDotTd test', () => {
     test('default text -> first row left dot', () => {
-        const { charArr, input, expectedTd } = getVerticalDotTdTestMaterials();
+        const { charArr, input, expectedTd } = getDotTdTestMaterials();
         const td = getVerticalDotTd(charArr, 0, 0, input);
 
         expect(td.innerText).toBe(expectedTd.innerText);
@@ -92,7 +95,7 @@ describe('getVerticalDotTd test', () => {
     });
 
     test('default text -> first row right dot', () => {
-        const { charArr, input, expectedTd } = getVerticalDotTdTestMaterials();
+        const { charArr, input, expectedTd } = getDotTdTestMaterials();
         const td = getVerticalDotTd(charArr, 0, 9, input);
 
         expect(td.innerText).toBe(expectedTd.innerText);
@@ -103,7 +106,7 @@ describe('getVerticalDotTd test', () => {
     });
 
     test('default text -> last row right dot', () => {
-        const { charArr, input, expectedTd } = getVerticalDotTdTestMaterials();
+        const { charArr, input, expectedTd } = getDotTdTestMaterials();
         const td = getVerticalDotTd(charArr, 7, 9, input);
 
         expect(td.innerText).toBe(expectedTd.innerText);
@@ -111,6 +114,41 @@ describe('getVerticalDotTd test', () => {
 
         td.click();
         expect(input.value).toBe('&1%7fBE3');
+    });
+});
+
+describe('getHorizontalDotTd test', () => {
+    test('default text -> first col top dot', () => {
+        const { invCharArr, input, expectedTd } = getDotTdTestMaterials();
+        const td = getHorizontalDotTd(invCharArr, 1, 0, input);
+
+        expect(td.innerText).toBe(expectedTd.innerText);
+        expect(td).toEqual(expectedTd);
+
+        td.click();
+        expect(input.value).toBe('01"-$3>3');
+    });
+
+    test('default text -> first col bottom dot', () => {
+        const { invCharArr, input, expectedTd } = getDotTdTestMaterials();
+        const td = getHorizontalDotTd(invCharArr, 1, 9, input);
+
+        expect(td.innerText).toBe(expectedTd.innerText);
+        expect(td).toEqual(expectedTd);
+
+        td.click();
+        expect(input.value).toBe('3>3$-"10');
+    });
+
+    test('default text -> last col bottom dot', () => {
+        const { invCharArr, input, expectedTd } = getDotTdTestMaterials();
+        const td = getHorizontalDotTd(invCharArr, 8, 9, input);
+
+        expect(td.innerText).toBe(expectedTd.innerText);
+        expect(td).toEqual(expectedTd);
+
+        td.click();
+        expect(input.value).toBe('&9aAD78B');
     });
 });
 
