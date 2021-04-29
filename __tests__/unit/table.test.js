@@ -4,6 +4,7 @@ import {
     getVerticalDotTd,
     getHorizontalDotTd,
     getBlankCornerTd,
+    getTable,
 } from '../../public/js/table.js';
 
 describe('getCharacterArrays test', () => {
@@ -162,5 +163,26 @@ describe('getBlankCornerTd test', () => {
 
         expect(tdB.innerText).toBe(tdA.innerText);
         expect(tdB).toEqual(tdA);
+    });
+});
+
+describe('getTable test', () => {
+    test('default text -> HTML table (match snapshot)', () => {
+        const text = '0d@#$faB131{}788";49C?A7-+970!CD$%9&*()A3F]:4dba>7,eB3=93EBf7%1&';
+        const input = document.createElement('input');
+
+        expect(getTable(text, input)).toMatchSnapshot();
+    });
+
+    test('default text -> HTML table (match text)', () => {
+        const text = '0d@#$faB131{}788";49C?A7-+970!CD$%9&*()A3F]:4dba>7,eB3=93EBf7%1&';
+        const input = document.createElement('input');
+        const table = getTable(text, input);
+
+        expect(table.querySelector('tr:nth-child(1) td:nth-child(1)').innerText).toBe(' ');
+        expect(table.querySelector('tr:nth-child(1) td:nth-child(2)').innerText).toBe('·');
+        expect(table.querySelector('tr:nth-child(2) td:nth-child(2)').innerText).toBe('0');
+        expect(table.querySelector('tr:nth-child(3) td:nth-child(3)').innerText).toBe('3');
+        expect(table.querySelector('tr:nth-child(9) td:nth-child(9)').innerText).toBe('&');
     });
 });
