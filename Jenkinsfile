@@ -9,11 +9,11 @@ pipeline {
                 git 'https://github.com/1noro/glyph.rat.la.git'
             }
         }
-        stage('Build') {
-            steps {
-                sh 'npm install'
-            }
-        }  
+        // stage('Build') {
+        //     steps {
+        //         sh 'npm install'
+        //     }
+        // }  
         stage('Test') {
             steps {
                 sh 'node test'
