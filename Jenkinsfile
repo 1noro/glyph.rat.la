@@ -6,14 +6,14 @@ pipeline {
     stages {
         stage('Git') {
             steps {
-                git 'https://github.com/1noro/glyph.rat.la.git'
+                git 'https://github.com/1noro/glyph.rat.la'
             }
         }
-        // stage('Build') {
-        //     steps {
-        //         sh 'npm install'
-        //     }
-        // }  
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
+        }  
         stage('Test') {
             steps {
                 sh 'node test'
