@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getTable test default text -> HTML table (match snapshot) 1`] = `
+<table>
+  <tr>
+    <td
+      style="cursor: default;"
+    />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td
+      style="cursor: default;"
+    />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+  </tr>
+  <tr>
+    <td
+      style="cursor: default;"
+    />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td />
+    <td
+      style="cursor: default;"
+    />
+  </tr>
+</table>
+`;
