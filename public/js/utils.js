@@ -37,6 +37,7 @@ function getStats(text) {
     let lower = 0;
     let upper = 0;
     let special = 0;
+
     for (let i = 0; i < text.length; i += 1) {
         if (/^\d+$/.test(text.charAt(i))) {
             number += 1;
@@ -48,6 +49,7 @@ function getStats(text) {
             special += 1;
         }
     }
+
     return {
         special: (special * 100) / text.length, // special characters
         number: (number * 100) / text.length, // numeric digits
