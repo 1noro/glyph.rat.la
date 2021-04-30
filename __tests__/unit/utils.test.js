@@ -48,9 +48,27 @@ describe('digestMessage test', () => {
     });
 });
 
-describe('uppercaseTransformation test', () => {
-    test('las posiciones 0 y 2 son minúsculas', () => {
+describe('upperCaseTransformation test', () => {
+    test('abc -> aBc', () => {
         expect(upperCaseTransformation('abc')).toBe('aBc');
+    });
+
+    test('sha256("a") -> ...', () => {
+        expect(
+            upperCaseTransformation('ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb'),
+        ).toBe('cA978112cA1BbdcAFaC231B39A23Dc4da786eFf8147C4e72b9807785AFeE48bb');
+    });
+
+    test('"𫪥ű򶁘䅗̆#и🦠3󍓴񇡂茎䉔췃𩥆ᶹ˸󅚝~𡫲륫󑆡h%򏟶w" -> "𫪥Ű򶁘䅗̆#И🦠3󍓴񇡂茎䉔췃𩥆ᶹ˸󅚝~𡫲륫󑆡H%򏟶w"', () => {
+        expect(
+            upperCaseTransformation('𫪥ű򶁘䅗̆#и🦠3󍓴񇡂茎䉔췃𩥆ᶹ˸󅚝~𡫲륫󑆡h%򏟶w'),
+        ).toBe('𫪥Ű򶁘䅗̆#И🦠3󍓴񇡂茎䉔췃𩥆ᶹ˸󅚝~𡫲륫󑆡H%򏟶w');
+    });
+
+    test('"A11dos!dos7^6_hijo&paTToCorre723u" -> "A11DoS!DoS7^6_HiJo&paTToCORre723U"', () => {
+        expect(
+            upperCaseTransformation('A11dos!dos7^6_hijo&paTToCorre723u'),
+        ).toBe('A11DoS!DoS7^6_HiJo&paTToCORre723U');
     });
 });
 
