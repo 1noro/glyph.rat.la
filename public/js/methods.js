@@ -17,13 +17,8 @@ function defaultMethod(text) {
 }
 
 // Number
-// TODO: functional refactor
-function numberMethod(text) {
-    let result = '';
-    for (let i = 0; i < text.length; i += 1) {
-        result += text.charCodeAt(i) % 10; // result always < 10
-    }
-    return result;
+function numberMethod(str) {
+    return [...str].map((char) => char.charCodeAt(0) % 10).join('');
 }
 
 // Number + Letter
