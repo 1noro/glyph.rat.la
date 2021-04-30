@@ -34,15 +34,13 @@ import { getTable } from './js/table.js';
 
 // Refresh table: (text, method) -> calculate -> clear -> display
 function refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput) {
+    // start time counter
+    console.time('refresh');
+
     // calculate
     const digestText = getText(inputTextObject, selectMethodObject);
 
-    // log
-    console.log(digestText);
-    console.log(getStats(digestText));
-
     // clear
-    // tableContainerObject.innerHTML = '';
     if (tableContainerObject.lastChild) {
         tableContainerObject.removeChild(tableContainerObject.lastChild);
     }
@@ -50,9 +48,15 @@ function refresh(inputTextObject, selectMethodObject, tableContainerObject, copy
     // display
     const table = getTable(digestText, copyInput);
     tableContainerObject.appendChild(table);
+
+    // log
+    console.log(`%c${digestText}`, 'font-size: 1.2em;');
+    console.log(getStats(digestText));
+    console.timeEnd('refresh');
 }
 
 function setup() {
+    // get all DOM Elements
     const inputTextObject = document.getElementById('text_input');
     const selectMethodObject = document.getElementById('method');
     const tableContainerObject = document.getElementById('table_cont');
@@ -60,6 +64,7 @@ function setup() {
     const copySubmit = document.getElementById('copy_submit');
     const clearCopySubmit = document.getElementById('clear_copy_submit');
 
+    // event listeners
     document.getElementById('method').addEventListener('change', () => {
         refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });
@@ -69,7 +74,6 @@ function setup() {
     });
 
     clearCopySubmit.addEventListener('click', () => {
-        // copyInput.value = '';
         copyInput.setAttribute('value', '');
         refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });

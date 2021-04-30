@@ -6,19 +6,19 @@ function getCharacterArrays(text) {
     const charArr = [];
     const invCharArr = [];
 
-    let wAlpha = 0;
-    let hAlpha = 0;
+    let bW = 0;
+    let bH = 0;
 
-    for (let h = 0; h < GLOBALS.charTableSize; h += 1) {
+    for (let aH = 0; aH < GLOBALS.charTableSize; aH += 1) {
         charArr.push([]);
         invCharArr.push([]);
-        hAlpha = 0;
-        for (let w = 0; w < GLOBALS.charTableSize; w += 1) {
-            charArr[h][w] = text.charAt(h * 8 + w);
-            invCharArr[wAlpha][hAlpha] = text.charAt(hAlpha * 8 + wAlpha);
-            hAlpha += 1;
+        bH = 0;
+        for (let aW = 0; aW < GLOBALS.charTableSize; aW += 1) {
+            charArr[aH][aW] = text.charAt(aH * 8 + aW);
+            invCharArr[bW][bH] = text.charAt(bH * 8 + bW);
+            bH += 1;
         }
-        wAlpha += 1;
+        bW += 1;
     }
 
     return { charArr, invCharArr };
@@ -92,23 +92,23 @@ function getTable(text, copyInput) {
     // console.log(charArr);
     // console.log(invCharArr);
 
-    let h = 0;
-    let w = 0;
-    for (let tH = 0; tH < GLOBALS.tableSize; tH += 1) {
+    let charTabH = 0;
+    let charTabW = 0;
+    for (let tabH = 0; tabH < GLOBALS.tableSize; tabH += 1) {
         const tr = document.createElement('tr');
-        if (tH > 0 && tH < 9) w = 0;
-        for (let tW = 0; tW < GLOBALS.tableSize; tW += 1) {
+        if (tabH > 0 && tabH < 9) charTabW = 0;
+        for (let tabW = 0; tabW < GLOBALS.tableSize; tabW += 1) {
             let td;
-            if (tW > 0 && tW < 9 && tH > 0 && tH < 9) {
+            if (tabW > 0 && tabW < 9 && tabH > 0 && tabH < 9) {
                 // square chars
-                td = getSquareCharTd(charArr[h][w], copyInput);
-                w += 1;
-            } else if (tH > 0 && tH < 9) {
+                td = getSquareCharTd(charArr[charTabH][charTabW], copyInput);
+                charTabW += 1;
+            } else if (tabH > 0 && tabH < 9) {
                 // vertical dots (left & right)
-                td = getVerticalDotTd(charArr, h, tW, copyInput);
-            } else if (tW > 0 && tW < 9) {
+                td = getVerticalDotTd(charArr, charTabH, tabW, copyInput);
+            } else if (tabW > 0 && tabW < 9) {
                 // horizontal dots (top & bottom)
-                td = getHorizontalDotTd(invCharArr, tW, tH, copyInput);
+                td = getHorizontalDotTd(invCharArr, tabW, tabH, copyInput);
             } else {
                 // blank corners
                 td = getBlankCornerTd();
@@ -116,7 +116,7 @@ function getTable(text, copyInput) {
             tr.appendChild(td);
         }
         table.appendChild(tr);
-        if (tH > 0 && tH < 9) h += 1;
+        if (tabH > 0 && tabH < 9) charTabH += 1;
     }
 
     return table;

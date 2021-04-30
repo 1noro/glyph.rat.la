@@ -14,16 +14,19 @@ import Sha256 from './lib/sha256.js'; // https://www.movable-type.co.uk/scripts/
 
 const digestMessage = (message) => Sha256.hash(message);
 
+function upperOrNot(previous, actual) {
+    if (previous.charCodeAt(0) % 2 !== 0) {
+        return actual.toUpperCase();
+    }
+    return actual;
+}
+
 // Upper case transformation of previous even number
 // TODO: functional refactor
 function upperCaseTransformation(text) {
     let result = text.charAt(0);
     for (let i = 1; i < text.length; i += 1) {
-        if (text.charCodeAt(i - 1) % 2 !== 0) {
-            result += text.charAt(i).toUpperCase();
-        } else {
-            result += text.charAt(i);
-        }
+        result += upperOrNot(text.charAt(i - 1), text.charAt(i));
     }
     return result;
 }
@@ -34,6 +37,7 @@ function getStats(text) {
     let lower = 0;
     let upper = 0;
     let special = 0;
+
     for (let i = 0; i < text.length; i += 1) {
         if (/^\d+$/.test(text.charAt(i))) {
             number += 1;
@@ -45,6 +49,7 @@ function getStats(text) {
             special += 1;
         }
     }
+
     return {
         special: (special * 100) / text.length, // special characters
         number: (number * 100) / text.length, // numeric digits
