@@ -12,18 +12,15 @@
 
 pipeline {
     agent any
-    tools {
-        nodejs 'NodeJS12.22.1'
-    }
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh 'make docker/setup'
             }
         }  
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh 'make docker/test'
             }
         }
     }
