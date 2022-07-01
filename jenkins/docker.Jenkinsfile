@@ -1,3 +1,4 @@
+/*https://stackoverflow.com/questions/62253474/jenkins-invalid-agent-type-docker-specified-must-be-one-of-any-label-none*/
 pipeline {
     agent { docker { image 'node:16' } }
     options {
