@@ -12,6 +12,11 @@
 
 pipeline {
     agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+        disableConcurrentBuilds()
+        /*timeout(time: 300, unit: "SECONDS")*/
+    }
     stages {
         stage('Print env') {
             steps {
