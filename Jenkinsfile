@@ -20,12 +20,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'make docker/setup'
+                sh 'make docker-setup'
             }
         }  
         stage('Test') {
             steps {
-                sh 'make docker/test'
+                sh 'make docker-test'
             }
         }
     }
