@@ -6,17 +6,16 @@ help:
 
 .PHONY: local-setup
 local-setup:
-	@npm install
+	@yarn install
 
 .PHONY: local-test
 local-test:
-	@npm test
+	@yarn test
 
 .PHONY: docker-setup
 docker-setup:
-	#docker run --rm -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:17 npm install --loglevel verbose
-	docker run -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:17 npm install --loglevel verbose
+	docker run --rm -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:16 yarn install --loglevel verbose
 
 .PHONY: docker-test
 docker-test:
-	docker run --rm -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:17 npm test
+	docker run --rm -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:16 yarn test
