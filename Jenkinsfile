@@ -13,6 +13,11 @@
 pipeline {
     agent any
     stages {
+        stage('Print env') {
+            steps {
+                sh 'printenv'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'make docker/setup'
