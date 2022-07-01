@@ -14,7 +14,8 @@ local-test:
 
 .PHONY: docker-setup
 docker-setup:
-	docker run --rm -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:17 npm install --loglevel verbose
+	#docker run --rm -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:17 npm install --loglevel verbose
+	docker run -v "$(PWD)":/usr/src/app -w /usr/src/app -u $(shell id -u):$(shell id -g) node:17 npm install --loglevel verbose
 
 .PHONY: docker-test
 docker-test:
