@@ -88,10 +88,6 @@ function getBlankCornerTd() {
 function getTable(text, copyInput) {
     const table = document.createElement('table');
     const { charArr, invCharArr } = getCharacterArrays(text); // charArr & invCharArr construction
-
-    // console.log(charArr);
-    // console.log(invCharArr);
-
     let charTabH = 0;
     let charTabW = 0;
     for (let tabH = 0; tabH < GLOBALS.tableSize; tabH += 1) {

@@ -41,10 +41,12 @@ class Sha256 {
 
         // note use throughout this routine of 'n >>> 0' to coerce Number 'n' to unsigned 32-bit integer
 
-        switch (opt.msgFormat) {
-            default: // default is to convert string to UTF-8, as SHA only deals with byte-streams
-            case 'string':   msg = utf8Encode(msg);       break;
-            case 'hex-bytes':msg = hexBytesToString(msg); break; // mostly for running tests
+        if (opt.msgFormat == 'hex-bytes') {
+            // mostly for running tests
+            msg = hexBytesToString(msg);
+        } else {
+            // default is to convert string to UTF-8, as SHA only deals with byte-streams
+            msg = utf8Encode(msg);
         }
 
         // constants [§4.2.2]
