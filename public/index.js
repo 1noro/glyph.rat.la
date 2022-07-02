@@ -78,10 +78,8 @@ function setup() {
         refresh(inputTextObject, selectMethodObject, tableContainerObject, copyInput);
     });
 
-    copySubmit.addEventListener('click', () => {
-        copyInput.select();
-        copyInput.setSelectionRange(0, 99999);
-        document.execCommand('copy');
+    copySubmit.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(copyInput.value);
         copySubmit.value = 'copy again';
     });
 
