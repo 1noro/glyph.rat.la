@@ -2,12 +2,12 @@ name: Push diagnosis
 on:
   push:
     branches:
-      - pre
-      - wip_pass-tests
       - main
+      - pre
+      - 'release_**'
 jobs:
   build:
-    name: Build
+    name: Push diagnosis
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
